@@ -1,13 +1,11 @@
-name: CI
+name: 🧪 Run tests
 
 on:
-  push:
-    branches: [master, main]
-  pull_request:
-    branches: [master, main]
+  workflow_call:
 
 jobs:
   test:
+    name: 🧪 Run tests
     runs-on: ubuntu-latest
 
     services:
