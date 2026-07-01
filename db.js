@@ -1,18 +1,16 @@
-const { Pool } = require('pg');
-const { Kysely, PostgresDialect } = require('kysely');
+// db.js
+const { Pool } = require("pg");
 
-const dialect = new PostgresDialect({
-  pool: new Pool({
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    max: 10,
-  }),
+const pool = new Pool({
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT || "5432"),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
-// Si tu as un schéma de tables typé, remplace <Database> par ton interface
-const db = new Kysely(dialect);
+pool.connect()
+  .then(() => console.log("✅ PostgreSQL connecté"))
+  .catch((err) => console.error("❌ Erreur connexion PostgreSQL :", err.message));
 
-module.exports = { db };
+module.exports = pool;
