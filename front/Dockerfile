@@ -17,7 +17,8 @@ ENV NODE_ENV=production
 RUN npm ci --omit=dev
 
 # ---- Build ----
-FROM deps AS builder
+FROM base AS builder
+RUN npm ci
 COPY . .
 RUN npm run build
 
