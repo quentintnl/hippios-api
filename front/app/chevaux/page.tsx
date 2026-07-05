@@ -46,6 +46,9 @@ export default function ChevauxPage() {
         {error && (
           <p className="text-center text-equestre-alert">Erreur : {error}</p>
         )}
+        <h1 className="text-3xl font-bold text-equestre-primary mb-6">
+          Liste des chevaux
+        </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {chevauxTries.map((cheval) => (
             <Link key={cheval.id} href={`/cheval/${cheval.id}`}>

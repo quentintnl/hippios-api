@@ -18,6 +18,8 @@ RUN npm ci --omit=dev
 
 # ---- Build ----
 FROM base AS builder
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 RUN npm ci
 COPY . .
 ARG NEXT_PUBLIC_API_URL

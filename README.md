@@ -1,77 +1,5 @@
-# 🐴 Hippios API
-
-API REST Express.js connectée à une base PostgreSQL, conteneurisée avec Docker.
-
-## Stack technique
-
-- **Runtime** : Node.js 20
-- **Framework** : Express.js 4
-- **Base de données** : PostgreSQL 16
-- **Auth** : Better Auth
-- **Orchestration** : Docker Compose
-- **Dev** : Nodemon (hot reload)
-
----
-
-## Prérequis
-
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- [Node.js 20+](https://nodejs.org/) (optionnel, uniquement si tu travailles hors Docker)
-
----
-
-## Installation
-
-### 1. Cloner le dépôt
-
-```bash
-git clone https://github.com/TaupeInHambourg/hippios-api.git
-cd hippios-api
-```
-
-### 2. Configurer les variables d'environnement
-
-```bash
-cp .env.example .env
-```
-
-Édite `.env` avec tes valeurs :
-
-```env
-NODE_ENV=development
-PORT=3000
-
-# PostgreSQL
-DB_USER=ton_utilisateur
-DB_PASSWORD=ton_mot_de_passe
-DB_NAME=hippios
-DB_HOST=postgres
-DB_PORT=5432
-
-# Better Auth
-BETTER_AUTH_SECRET=remplace_par_une_chaine_aleatoire
-BETTER_AUTH_URL=http://localhost:3000
-
-# Origines autorisées (front-end)
-TRUSTED_ORIGINS=http://localhost:5173
-```
-
-> 💡 Pour générer un secret : `openssl rand -base64 32`
-
-### 3. Démarrer les conteneurs
-
-```bash
-docker compose up --build
-```
-
-Les deux services démarrent :
-- **hippios-postgres** sur le port `5432`
-- **hippios-api** sur le port `3000`
-
-L'API attend que PostgreSQL soit healthy avant de démarrer.
-# 🐴 Hippios API
-
-API REST Express.js connectée à une base PostgreSQL, conteneurisée avec Docker.
+# 🐴 Hippios
+Application de gestion de santé d'un cheval.
 
 ## Stack technique
 
@@ -93,11 +21,20 @@ API REST Express.js connectée à une base PostgreSQL, conteneurisée avec Docke
 
 ## Installation
 
-### 1. Cloner le dépôt
+### 1. Préparer le dépôt localement
+#### Cloner le dépôt
 
 ```bash
 git clone https://github.com/TaupeInHambourg/hippios-api.git
 cd hippios-api
+```
+#### Installer les packages
+
+```bash
+cd front
+yarn install
+cd ../api
+npm install
 ```
 
 ### 2. Configurer les variables d'environnement
@@ -170,15 +107,31 @@ Depuis **PowerShell** :
 ```powershell
 Invoke-RestMethod -Method Post -Uri "http://localhost:3000/horses" `
   -ContentType "application/json" `
-  -Body '{"name": "Tornado", "breed": "Andalou"}'
+  -Body '{"name": "Spirit", "breed": "Mustang"}'
+
+Invoke-RestMethod -Method Post -Uri "http://localhost:3000/horses" `
+  -ContentType "application/json" `
+  -Body '{"name": "Angus", "breed": "Shire"}'
+
+Invoke-RestMethod -Method Post -Uri "http://localhost:3000/horses" `
+  -ContentType "application/json" `
+  -Body '{"name": "Epona", "breed": "Clydesdale"}'
 ```
 
 Depuis **un terminal Unix** (macOS / Linux / WSL) :
 
 ```bash
-curl -X POST http://localhost:3000/horses \
+curl -X POST https://api.hippios.audrey.norvez.mds-nantes.fr/horses \
   -H "Content-Type: application/json" \
-  -d '{"name": "Tornado", "breed": "Andalou"}'
+  -d '{"name": "Spirit", "breed": "Mustang"}'
+
+curl -X POST https://api.hippios.audrey.norvez.mds-nantes.fr/horses \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Angus", "breed": "Shire"}'
+
+curl -X POST https://api.hippios.audrey.norvez.mds-nantes.fr/horses \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Epona", "breed": "Clydesdale"}'
 ```
 
 ---

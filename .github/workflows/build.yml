@@ -52,5 +52,7 @@ jobs:
           target: prod
           push: true
           tags: ${{ env.registry }}/${{ env.IMAGE_REPOSITORY }}-front:latest
+          build-args: |
+            NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
